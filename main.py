@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_pdf_viewer import pdf_viewer
 import os
 import shutil
 from read_pdf import is_pdf, read_pdf_text, stop_speech, text_to_speech
@@ -34,6 +35,9 @@ if st_submit:
             
             pages,text = read_pdf_text(path, st_page_no)
             st.write(f"Total number of pages in the PDF: {pages}")
+            
+            pdf_viewer(input=path,
+                   width=700)
             
             text_to_speech(text)
 
