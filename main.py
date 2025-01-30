@@ -13,8 +13,6 @@ if not os.path.exists("temp"):
 else:
     temp_dir = temp_dir_path
 
-
-
 with st.sidebar:
     pdf_file = st.file_uploader(label="Upload a PDF file", type=["pdf"])
 
