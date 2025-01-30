@@ -1,4 +1,4 @@
-pyttx3==2.98
+pyttsx3==2.98
 pypdf2==3.0.1
 streamlit==1.41.1
 streamlit-pdf-viewer==0.0.20
