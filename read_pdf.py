@@ -1,7 +1,5 @@
 from PyPDF2 import PdfReader
-import pyttsx3
 
-speaker = pyttsx3.init()
 def is_pdf(filepath):
     """
     Check if the given file path points to a PDF file.
@@ -15,27 +13,17 @@ def is_pdf(filepath):
         return False
     return True
 
-def stop_speech():
-    """
-    Stop the text-to-speech conversion.
-    Returns:
-        None
-    """
-    speaker.stop()
-    if speaker._inLoop:
-        speaker.endLoop()
 
-def text_to_speech(page):
+def str_to_sentence_list(page):
     """
-    Convert text to speech using the pyttsx3 library.
+    Convert a string of text into a list of sentences.
     Args:
-        page (str): The text content to be converted to speech.
+        page (str): The text content to be converted.
     Returns:
-        None
+        list: A list of sentences extracted from the text.
     """
-
-    speaker.say(page)
-    speaker.runAndWait()
+    text_list = [text.replace("\n", " ") for text in page.split(".")]
+    return text_list
 
 def read_pdf_text(filepath,page_number):   
     """
@@ -53,7 +41,11 @@ def read_pdf_text(filepath,page_number):
         pdf_reader = PdfReader(pdf_file)
         pages = len(pdf_reader.pages)
         page = pdf_reader.pages[page_number - 1]
-        return pages, page.extract_text() 
+        sentence_list = str_to_sentence_list(page.extract_text())
+        return pages, sentence_list 
+    
+    
+
     
 if __name__ == "__main__":
     file = "sample.pdf"
@@ -61,5 +53,4 @@ if __name__ == "__main__":
     pages, text = read_pdf_text(file,0)
     print(pages)
     print(text)
-    text_to_speech(text)
 
